@@ -1,0 +1,23 @@
+services:
+  api:
+    build:
+      context: ./backend
+    environment:
+      IRSA_SIA_URL: https://irsa.ipac.caltech.edu/SIA
+      IRSA_TIMEOUT_SECONDS: 30
+      IRSA_MAX_RECORDS: 100
+      CORS_ORIGINS: http://localhost:3000
+      PREVIEW_MAX_BYTES: 35000000
+    ports:
+      - "8000:8000"
+  web:
+    build:
+      context: .
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8000
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api

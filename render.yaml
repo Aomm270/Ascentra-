@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: ascentra-api
+    runtime: python
+    region: oregon
+    plan: 1c-2g
+    buildCommand: pip install --no-cache-dir -r backend/requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    autoDeployTrigger: commit
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.11
+      - key: IRSA_SIA_URL
+        value: https://irsa.ipac.caltech.edu/SIA
+      - key: IRSA_TIMEOUT_SECONDS
+        value: "30"
+      - key: IRSA_MAX_RECORDS
+        value: "100"
+      - key: CORS_ORIGINS
+        sync: false
+      - key: PREVIEW_MAX_BYTES
+        value: "35000000"
+      - key: RATE_LIMIT_PER_MINUTE
+        value: "40"

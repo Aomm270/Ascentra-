@@ -1,0 +1,14 @@
+node_modules/
+.next/
+out/
+dist/
+__pycache__/
+.venv/
+.env
+.env.local
+*.py[cod]
+*.tsbuildinfo
+*.fits
+*.fits.gz
+*.png
+*.log
